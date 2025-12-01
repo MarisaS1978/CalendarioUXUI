@@ -1,0 +1,155 @@
+:root {
+    --color-fondo: #f5f5f5;
+    --color-primario: #c90000; /* Rojo festivo */
+    --color-secundario: #ffd700; /* Dorado/Amarillo */
+    --color-texto: #ffffff;
+    --color-borde: #a00000;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--color-fondo);
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: var(--color-primario);
+    font-size: 2.5em;
+}
+
+/* --- GRID del Calendario --- */
+.calendario {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+
+    /* --- ESTILOS PARA EL MARCO METÁLICO/DORADO --- */
+    padding: 40px; /* Más espacio para el marco */
+    background-color: #fffaf0; /* Fondo del marco interior (casi blanco) */
+    border-radius: 15px;
+    
+    /* Simula un marco dorado usando múltiples sombras */
+    box-shadow: 
+        /* Borde exterior oscuro (sombra de la pared) */
+        0 8px 15px rgba(0, 0, 0, 0.4), 
+        /* Primer capa dorada (exterior) */
+        0 0 0 8px #d4af37, 
+        /* Segunda capa (interior, para dar brillo) */
+        0 0 0 16px #ffeb3b,
+        /* Borde interior oscuro (profundidad) */
+        inset 0 0 0 2px #a00000;
+}
+
+.ventana-adviento {
+    background-color: var(--color-primario);
+    border: 3px solid var(--color-borde);
+    color: var(--color-texto);
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    user-select: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Estado: Habilitada para abrir (pero aún no abierta) */
+.ventana-adviento.habilitada {
+    background-color: var(--color-primario);
+    cursor: pointer;
+}
+
+.ventana-adviento.habilitada:hover {
+    background-color: #e00000; /* Rojo más claro al pasar el ratón */
+    transform: scale(1.05);
+}
+
+/* Estado: Cerrada (Días futuros) */
+.ventana-adviento.cerrada {
+    background-color: #333;
+    opacity: 0.8;
+    cursor: not-allowed;
+    position: relative;
+}
+
+.ventana-adviento.cerrada::after {
+    content: '🔒'; /* Candado para indicar que está bloqueado */
+    position: absolute;
+    font-size: 1.5rem;
+    color: var(--color-secundario);
+    top: 5px;
+    right: 5px;
+}
+
+/* Estado: Abierta (El tip ya fue revelado) */
+.ventana-adviento.abierta {
+    background-color: var(--color-secundario);
+    color: #333;
+    cursor: default;
+    border-color: gold;
+    transform: none;
+    box-shadow: none;
+    font-size: 1.2em;
+    padding: 5px;
+}
+
+/* --- Estilos de la Modal --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro */
+}
+
+.modal-contenido {
+    background-color: var(--color-fondo);
+    margin: 15% auto; /* Centrado vertical y horizontal */
+    padding: 25px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s;
+}
+
+.cerrar-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.cerrar-modal:hover,
+.cerrar-modal:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modalDia {
+    color: var(--color-primario);
+    margin-top: 0;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
